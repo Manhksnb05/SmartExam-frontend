@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<title>Tạo đề thi - Smart Exam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+/* ===== BODY ===== */
+
+body{
+margin:0;
+font-family:"Segoe UI",sans-serif;
+background:#f1f5f9;
+}
+
+/* ===== NAVBAR (GIỐNG EXAM-BANK) ===== */
+
+.navbar{
+background:#ffffff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 60px;
+border-bottom:1px solid #e2e8f0;
+box-shadow:0 4px 10px rgba(0,0,0,0.04);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+color:#0B3C5D;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:28px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#334155;
+font-weight:500;
+transition:0.25s;
+}
+
+.nav-links a:hover{
+color:#0B3C5D;
+}
+
+.nav-links a.active{
+color:#0B3C5D;
+font-weight:700;
+border-bottom:2px solid #0B3C5D;
+padding-bottom:4px;
+}
+
+.nav-cta{
+background:#0B3C5D;
+color:white !important;
+padding:10px 18px;
+border-radius:30px;
+font-weight:600;
+transition:0.25s;
+}
+
+.nav-cta:hover{
+background:#2563eb;
+}
+
+/* ===== GRID LAYOUT ===== */
+
+.parent{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:25px;
+padding:60px 60px;
+align-items:start;
+}
+
+/* CARD BOX */
+
+.box{
+background:white;
+border:1px solid #e2e8f0;
+border-radius:24px;
+padding:30px;
+transition:0.3s;
+}
+
+.box:hover{
+box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* CREATE EXAM */
+
+.div1{
+grid-column:span 3;
+}
+
+/* PREVIEW */
+
+.div2{
+grid-column:span 2;
+}
+
+/* FORM GRID */
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-top:15px;
+}
+
+.form-group{
+display:flex;
+flex-direction:column;
+}
+
+.form-group.full{
+grid-column:1/3;
+}
+
+label{
+font-weight:600;
+margin-bottom:6px;
+color:#1e293b;
+}
+
+input,select{
+padding:12px;
+border-radius:10px;
+border:1px solid #e2e8f0;
+outline:none;
+font-size:14px;
+transition:0.25s;
+}
+
+input:focus,select:focus{
+border-color:#2563eb;
+box-shadow:0 4px 10px rgba(37,99,235,0.15);
+}
+
+/* BUTTON GROUP */
+
+.btn-group{
+margin-top:20px;
+display:flex;
+gap:12px;
+}
+
+/* CREATE BUTTON */
+
+.btn-create{
+background:linear-gradient(135deg,#0B3C5D,#2563eb);
+color:white;
+padding:11px 18px;
+border-radius:50px;
+border:none;
+cursor:pointer;
+font-weight:600;
+transition:0.25s;
+}
+
+.btn-create:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 25px rgba(37,99,235,0.35);
+}
+
+/* START BUTTON */
+
+.btn-start{
+background:#10b981;
+color:white;
+padding:11px 18px;
+border-radius:50px;
+border:none;
+cursor:pointer;
+font-weight:600;
+transition:0.25s;
+}
+
+.btn-start:hover{
+background:#059669;
+}
+
+/* PREVIEW HEADER */
+
+.preview-header{
+margin-bottom:15px;
+padding-bottom:10px;
+border-bottom:1px solid #e2e8f0;
+}
+
+.preview-info{
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+/* QUESTION PREVIEW */
+
+.question-preview{
+margin-top:15px;
+padding-bottom:10px;
+border-bottom:1px solid #e2e8f0;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+<i class="fas fa-layer-group"></i> Smart Exam
+</div>
+
+<div class="nav-links">
+<a href="../index.html">Trang chủ</a>
+<a href="exam-bank.html" class="active">Ngân hàng đề</a>
+<a href="history.html">Lịch sử thi</a>
+<a href="community-exams.html">Khám phá đề</a>
+<a href="../login.html" class="nav-cta">Đăng nhập</a>
+</div>
+
+</nav>
+
+
+<!-- GRID -->
+
+<div class="parent">
+
+<!-- CREATE EXAM -->
+
+<div class="box div1">
+
+<h2>Tạo đề thi</h2>
+
+<div class="form-grid">
+
+<div class="form-group full">
+<label>Tên đề thi</label>
+<input id="examName" placeholder="Ví dụ: TOEIC Test 01">
+</div>
+
+<div class="form-group">
+<label>Chế độ chia sẻ</label>
+<select id="shareMode">
+<option>Công khai</option>
+<option>Riêng tư</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Thời gian làm bài (phút)</label>
+<input type="number" id="examTime" value="30">
+</div>
+
+<div class="form-group full">
+<label>Số lượng câu hỏi</label>
+<input type="number" id="questionCount" value="5">
+</div>
+
+</div>
+
+<div class="btn-group">
+
+<button class="btn-create" onclick="generateExam()">
+Tạo đề thi
+</button>
+
+<button class="btn-start" onclick="startExam()">
+Làm đề thi
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PREVIEW -->
+
+<div class="box div2">
+
+<h2>Xem trước đề thi</h2>
+
+<div class="preview-header">
+
+<b id="previewName">Tên đề: Chưa đặt</b>
+
+<div class="preview-info">
+Thời gian: <span id="previewTime">30</span> phút
+</div>
+
+<div class="preview-info">
+Số câu hỏi: <span id="previewCount">0</span>
+</div>
+
+</div>
+
+<div id="previewArea">
+Chưa có đề thi
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* QUESTION BANK */
+
+const questionBank=[
+
+{q:"The meeting ______ at 9 AM tomorrow.",A:"start",B:"starts",C:"starting",D:"started",correct:"B"},
+{q:"She ______ to the office every day.",A:"go",B:"goes",C:"going",D:"gone",correct:"B"},
+{q:"Please send the report ______ Friday.",A:"by",B:"with",C:"from",D:"about",correct:"A"},
+{q:"The manager asked him ______ the project.",A:"finish",B:"finishing",C:"to finish",D:"finished",correct:"C"},
+{q:"We look forward to ______ from you.",A:"hear",B:"hearing",C:"heard",D:"hears",correct:"B"},
+{q:"Employees must ______ their ID cards.",A:"wear",B:"wears",C:"wearing",D:"wore",correct:"A"}
+
+]
+
+let selectedExam=[]
+
+function generateExam(){
+
+let count=document.getElementById("questionCount").value
+let time=document.getElementById("examTime").value
+let name=document.getElementById("examName").value || "Chưa đặt"
+
+document.getElementById("previewName").innerText="Tên đề: "+name
+document.getElementById("previewTime").innerText=time
+document.getElementById("previewCount").innerText=count
+
+let preview=document.getElementById("previewArea")
+
+preview.innerHTML=""
+
+let shuffled=[...questionBank].sort(()=>0.5-Math.random())
+selectedExam=shuffled.slice(0,count)
+
+selectedExam.forEach((q,i)=>{
+
+preview.innerHTML+=`
+
+<div class="question-preview">
+
+<b>Câu ${i+1}:</b> ${q.q}
+
+<br>A. ${q.A}
+<br>B. ${q.B}
+<br>C. ${q.C}
+<br>D. ${q.D}
+
+</div>
+
+`
+
+})
+
+localStorage.setItem("examData",JSON.stringify({
+name:name,
+time:time,
+questions:selectedExam
+}))
+
+}
+
+function startExam(){
+
+let exam=localStorage.getItem("examData")
+
+if(!exam){
+alert("Hãy tạo đề trước")
+return
+}
+
+window.location.href="exam.html"
+
+}
+
+</script>
+
+</body>
+</html>

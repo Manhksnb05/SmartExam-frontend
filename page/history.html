@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<title>Lịch sử thi - Smart Exam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+/* ===== BODY ===== */
+
+body{
+margin:0;
+font-family:"Segoe UI",sans-serif;
+background:#f1f5f9;
+}
+
+/* ===== NAVBAR ===== */
+
+.navbar{
+background:#ffffff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 60px;
+border-bottom:1px solid #e2e8f0;
+box-shadow:0 4px 10px rgba(0,0,0,0.04);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+color:#0B3C5D;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:28px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#334155;
+font-weight:500;
+transition:0.25s;
+}
+
+.nav-links a:hover{
+color:#0B3C5D;
+}
+
+.nav-links a.active{
+color:#0B3C5D;
+font-weight:700;
+border-bottom:2px solid #0B3C5D;
+padding-bottom:4px;
+}
+
+.nav-cta{
+background:#0B3C5D;
+color:white !important;
+padding:10px 18px;
+border-radius:30px;
+font-weight:600;
+}
+
+/* ===== MAIN SECTION ===== */
+
+.features{
+max-width:1200px;
+margin:auto;
+padding:60px 20px;
+}
+
+/* PAGE HEADER */
+
+.page-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.page-header h2{
+font-size:32px;
+color:#0B3C5D;
+}
+
+/* SEARCH */
+
+.search-box{
+margin-bottom:35px;
+max-width:420px;
+position:relative;
+}
+
+.search-box input{
+width:100%;
+padding:12px 15px 12px 40px;
+border-radius:50px;
+border:1px solid #e2e8f0;
+outline:none;
+font-size:14px;
+transition:0.2s;
+}
+
+.search-box input:focus{
+border-color:#3b82f6;
+box-shadow:0 5px 15px rgba(59,130,246,0.15);
+}
+
+.search-box i{
+position:absolute;
+left:14px;
+top:13px;
+color:#64748b;
+}
+
+/* GRID */
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+}
+
+/* HISTORY CARD */
+
+.history-card{
+padding:24px;
+border-radius:20px;
+background:white;
+border:1px solid #e2e8f0;
+transition:0.3s;
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+
+.history-card:hover{
+transform:translateY(-6px);
+box-shadow:0 20px 40px rgba(0,0,0,0.05);
+}
+
+/* HEADER */
+
+.history-header{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.history-header i{
+font-size:20px;
+color:#0B3C5D;
+background:#e0f2fe;
+width:36px;
+height:36px;
+border-radius:10px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.history-title{
+font-size:17px;
+font-weight:600;
+color:#1e293b;
+}
+
+/* META */
+
+.history-meta{
+font-size:13px;
+color:#64748b;
+}
+
+/* SCORE */
+
+.history-score{
+font-size:14px;
+font-weight:600;
+color:#16a34a;
+}
+
+/* ACTIONS */
+
+.history-actions{
+display:flex;
+gap:10px;
+margin-top:10px;
+align-items:center;
+}
+
+/* VIEW BUTTON */
+
+.btn-view{
+background:linear-gradient(135deg,#0B3C5D,#2563eb);
+color:white;
+padding:8px 14px;
+border-radius:50px;
+font-size:13px;
+text-decoration:none;
+font-weight:600;
+transition:0.25s;
+}
+
+.btn-view:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(37,99,235,0.35);
+}
+
+/* ICON BUTTON */
+
+.icon-btn{
+width:36px;
+height:36px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+background:#f1f5f9;
+color:#334155;
+transition:0.2s;
+}
+
+.icon-btn:hover{
+background:#e2e8f0;
+transform:scale(1.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+<i class="fas fa-layer-group"></i> Smart Exam
+</div>
+
+<div class="nav-links">
+<a href="../index.html">Trang chủ</a>
+<a href="exam-bank.html">Ngân hàng đề</a>
+<a href="history.html" class="active">Lịch sử thi</a>
+<a href="community-exams.html">Khám phá đề</a>
+<a href="../login.html" class="nav-cta">Đăng nhập</a>
+</div>
+
+</nav>
+
+
+<!-- MAIN CONTENT -->
+
+<section class="features">
+
+<div class="page-header">
+<h2>Lịch sử làm bài</h2>
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+<i class="fas fa-search"></i>
+<input
+type="text"
+id="searchInput"
+placeholder="Tìm bài thi..."
+>
+</div>
+
+<!-- HISTORY LIST -->
+
+<div class="feature-grid" id="historyList"></div>
+
+</section>
+
+
+<script>
+
+/* MOCK DATA */
+
+const historyData = [
+
+{
+title:"Đề thi Toán 12",
+score:8,
+total:10,
+date:"10/03/2026",
+time:"05:21"
+},
+
+{
+title:"Đề thi Tiếng Anh",
+score:7,
+total:10,
+date:"15/03/2026",
+time:"06:10"
+},
+
+{
+title:"Đề kiểm tra Vật lý",
+score:9,
+total:10,
+date:"20/03/2026",
+time:"04:48"
+}
+
+]
+
+const historyList = document.getElementById("historyList")
+
+function renderHistory(){
+
+historyList.innerHTML=""
+
+historyData.forEach((exam,index)=>{
+
+historyList.innerHTML+=`
+
+<div class="history-card">
+
+<div class="history-header">
+<i class="fas fa-file-alt"></i>
+<div class="history-title">${exam.title}</div>
+</div>
+
+<div class="history-meta">
+<i class="fas fa-calendar"></i> ${exam.date}
+</div>
+
+<div class="history-score">
+Điểm: ${exam.score} / ${exam.total}
+</div>
+
+<div class="history-meta">
+Thời gian làm: ${exam.time}
+</div>
+
+<div class="history-actions">
+
+<a href="review.html" class="btn-view">
+Xem chi tiết
+</a>
+
+<button class="icon-btn">
+<i class="fas fa-download"></i>
+</button>
+
+<button class="icon-btn delete-btn" data-id="${index}">
+<i class="fas fa-trash"></i>
+</button>
+
+</div>
+
+</div>
+
+`
+
+})
+
+}
+
+renderHistory()
+
+
+/* SEARCH */
+
+const searchInput = document.getElementById("searchInput")
+
+searchInput.addEventListener("input",function(){
+
+let keyword = this.value.toLowerCase()
+
+document.querySelectorAll(".history-card").forEach(card=>{
+
+let title = card.querySelector(".history-title").innerText.toLowerCase()
+
+card.style.display =
+title.includes(keyword) ? "flex" : "none"
+
+})
+
+})
+
+
+/* DELETE DEMO */
+
+document.addEventListener("click",function(e){
+
+if(e.target.closest(".delete-btn")){
+
+let card = e.target.closest(".history-card")
+
+if(confirm("Xóa bài thi này?")){
+card.remove()
+}
+
+}
+
+})
+
+</script>
+
+</body>
+</html>

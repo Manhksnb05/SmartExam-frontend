@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chi tiết bài thi - Smart Exam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+/* ===== BODY ===== */
+
+body{
+margin:0;
+font-family:"Segoe UI",sans-serif;
+background:#f1f5f9;
+}
+
+/* ===== NAVBAR (đồng bộ exam-bank) ===== */
+
+.navbar{
+background:#ffffff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 60px;
+border-bottom:1px solid #e2e8f0;
+box-shadow:0 4px 10px rgba(0,0,0,0.04);
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:20px;
+font-weight:700;
+color:#0B3C5D;
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.nav-links{
+display:flex;
+align-items:center;
+gap:28px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#334155;
+font-weight:500;
+transition:0.25s;
+}
+
+.nav-links a:hover{
+color:#0B3C5D;
+}
+
+.nav-links a.active{
+color:#0B3C5D;
+font-weight:700;
+border-bottom:2px solid #0B3C5D;
+padding-bottom:4px;
+}
+
+.nav-cta{
+background:#0B3C5D;
+color:white !important;
+padding:10px 18px;
+border-radius:30px;
+font-weight:600;
+transition:0.25s;
+}
+
+.nav-cta:hover{
+background:#2563eb;
+}
+
+/* ===== MAIN ===== */
+
+.features{
+max-width:1200px;
+margin:auto;
+padding:60px 20px;
+}
+
+/* ===== HEADER ===== */
+
+.page-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+}
+
+.page-header h2{
+font-size:30px;
+color:#0B3C5D;
+font-weight:700;
+}
+
+/* SCORE */
+
+.score-box{
+background:white;
+padding:10px 16px;
+border-radius:10px;
+border:1px solid #e2e8f0;
+font-weight:600;
+}
+
+/* RETAKE */
+
+.btn-retake{
+background:#2563eb;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:8px;
+transition:0.2s;
+}
+
+.btn-retake:hover{
+background:#1d4ed8;
+}
+
+/* LEGEND */
+
+.legend{
+display:flex;
+gap:20px;
+margin-bottom:25px;
+font-size:14px;
+}
+
+.legend span{
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+width:12px;
+height:12px;
+border-radius:50%;
+display:inline-block;
+}
+
+.dot.correct{background:#22c55e;}
+.dot.wrong{background:#ef4444;}
+
+/* ===== QUESTION CARD ===== */
+
+.question-card{
+background:white;
+border:1px solid #e2e8f0;
+border-radius:14px;
+padding:24px;
+margin-bottom:22px;
+transition:0.2s;
+}
+
+.question-card:hover{
+box-shadow:0 12px 30px rgba(0,0,0,0.06);
+}
+
+/* TITLE */
+
+.question-title{
+font-weight:600;
+margin-bottom:16px;
+font-size:16px;
+}
+
+/* OPTIONS */
+
+.option{
+border:1px solid #e2e8f0;
+border-radius:8px;
+padding:12px 14px;
+margin-bottom:10px;
+font-size:14px;
+}
+
+/* CORRECT */
+
+.correct{
+background:#dcfce7;
+border-color:#22c55e;
+}
+
+/* WRONG */
+
+.wrong{
+background:#fee2e2;
+border-color:#ef4444;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="logo">
+<i class="fas fa-layer-group"></i> Smart Exam
+</div>
+
+<div class="nav-links">
+<a href="../index.html">Trang chủ</a>
+<a href="exam-bank.html">Ngân hàng đề</a>
+<a href="history.html" class="active">Lịch sử thi</a>
+<a href="community-exams.html">Khám phá đề</a>
+<a href="../login.html" class="nav-cta">Đăng nhập</a>
+</div>
+
+</nav>
+
+<!-- MAIN -->
+
+<section class="features">
+
+<div class="page-header">
+
+<h2>Chi tiết bài thi</h2>
+
+<div style="display:flex;gap:12px;align-items:center">
+
+<div class="score-box">
+Điểm: <span id="score"></span>
+</div>
+
+<a href="exam.html" class="btn-retake">
+<i class="fas fa-redo"></i> Làm lại bài thi
+</a>
+
+</div>
+
+</div>
+
+<!-- LEGEND -->
+
+<div class="legend">
+
+<span><span class="dot correct"></span> Đáp án đúng</span>
+
+<span><span class="dot wrong"></span> Câu trả lời sai</span>
+
+</div>
+
+<!-- QUESTION LIST -->
+
+<div id="questionList"></div>
+
+</section>
+
+<script>
+
+/* MOCK DATA */
+
+const examData=[
+
+{
+question:"HTML dùng để làm gì?",
+options:[
+"Lập trình backend",
+"Thiết kế giao diện web",
+"Quản lý database",
+"Xử lý AI"
+],
+correct:1,
+user:2
+},
+
+{
+question:"CSS dùng để làm gì?",
+options:[
+"Trang trí giao diện",
+"Lưu dữ liệu",
+"Viết server",
+"Quản lý hệ thống"
+],
+correct:0,
+user:0
+},
+
+{
+question:"JavaScript chạy ở đâu?",
+options:[
+"Browser",
+"Server",
+"Database",
+"Cả A và B"
+],
+correct:3,
+user:3
+}
+
+]
+
+const container=document.getElementById("questionList")
+
+let correctCount=0
+
+examData.forEach((q,index)=>{
+
+if(q.correct===q.user) correctCount++
+
+let card=document.createElement("div")
+card.className="question-card"
+
+let html=`<div class="question-title">
+Câu ${index+1}: ${q.question}
+</div>`
+
+q.options.forEach((opt,i)=>{
+
+let className="option"
+
+if(i===q.correct) className+=" correct"
+
+if(i===q.user && q.user!==q.correct) className+=" wrong"
+
+html+=`<div class="${className}">${opt}</div>`
+
+})
+
+card.innerHTML=html
+
+container.appendChild(card)
+
+})
+
+document.getElementById("score").innerText=
+correctCount+" / "+examData.length
+
+</script>
+
+</body>
+</html>

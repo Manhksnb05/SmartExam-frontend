@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Smart Exam - Hệ thống tạo đề thi thông minh</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="logo">
+<i class="fas fa-layer-group"></i> Smart Exam
+</div>
+
+<div class="nav-links">
+<a href="page/exam-bank.html">Ngân hàng đề</a>
+<a href="page/history.html">Lịch sử thi</a>
+<a href="page/community-exams.html">Khám phá đề thi</a>
+<a href="#" class="nav-cta">Đăng nhập</a>
+</div>
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Tạo đề thi trắc nghiệm <br> <span>chỉ trong vài giây</span></h1>
+
+<p>
+Tải lên tài liệu của bạn để hệ thống tự động tạo đề thi online.
+</p>
+
+<div class="upload-note">
+Chỉ chấp nhận file: PDF, DOCX, DOC 
+</div>
+
+<div class="upload-box" id="uploadBox">
+
+<i class="fas fa-cloud-upload-alt"></i>
+
+<p>Kéo thả file vào đây</p>
+
+<span>hoặc click để chọn file</span>
+
+<input type="file" id="fileInput" hidden>
+
+</div>
+
+</section>
+
+
+<!-- RECENT EXAMS -->
+
+<section class="features">
+
+<h2 class="section-title">Đề thi được tải lên gần đây</h2>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+
+<div class="card-header">
+<i class="fas fa-file-alt"></i>
+<span>TOEIC Practice Test</span>
+</div>
+
+<p>
+Bộ đề luyện thi TOEIC gồm 50 câu hỏi trắc nghiệm về từ vựng và ngữ pháp.
+</p>
+
+<div class="card-meta">
+<span>50 câu hỏi</span>
+<span>15 phút</span>
+</div>
+
+</div>
+
+
+<div class="feature-card">
+
+<div class="card-header">
+<i class="fas fa-file-alt"></i>
+<span>Kiểm tra HTML CSS</span>
+</div>
+
+<p>
+Đề kiểm tra kiến thức cơ bản về HTML, CSS dành cho sinh viên năm nhất.
+</p>
+
+<div class="card-meta">
+<span>40 câu hỏi</span>
+<span>20 phút</span>
+</div>
+
+</div>
+
+
+<div class="feature-card">
+
+<div class="card-header">
+<i class="fas fa-file-alt"></i>
+<span>JavaScript Quiz</span>
+</div>
+
+<p>
+Bài kiểm tra JavaScript bao gồm DOM, Event, Array và Function.
+</p>
+
+<div class="card-meta">
+<span>35 câu hỏi</span>
+<span>15 phút</span>
+</div>
+
+</div>
+
+
+<div class="feature-card">
+
+<div class="card-header">
+<i class="fas fa-file-alt"></i>
+<span>Database Fundamentals</span>
+</div>
+
+<p>
+Kiểm tra kiến thức cơ bản về SQL, bảng dữ liệu và truy vấn.
+</p>
+
+<div class="card-meta">
+<span>30 câu hỏi</span>
+<span>10 phút</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<div class="footer-container">
+
+<div class="footer-col footer-about">
+
+<h3>Về Smart Exam</h3>
+
+<p>
+Smart Exam giúp giáo viên và trung tâm đào tạo tạo đề thi nhanh chóng
+và chấm điểm tự động.
+</p>
+
+<div class="social-links">
+
+<a href="#"><i class="fab fa-facebook"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-tiktok"></i></a>
+
+</div>
+
+</div>
+
+
+<div class="footer-col footer-links">
+
+<h3>Liên kết nhanh</h3>
+
+<ul>
+
+<li><a href="#">Trang chủ</a></li>
+<li><a href="#">Hướng dẫn</a></li>
+<li><a href="#">Ngân hàng đề</a></li>
+<li><a href="#">Chính sách</a></li>
+
+</ul>
+
+</div>
+
+
+<div class="footer-col footer-contact">
+
+<h3>Liên hệ</h3>
+
+<ul>
+
+<li><i class="fas fa-map-marker-alt"></i> HUTECH - TP.HCM</li>
+<li><i class="fas fa-envelope"></i> hotro@smartexam.vn</li>
+<li><i class="fas fa-phone"></i> 1900 123 456</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="copyright">
+© 2024 Smart Exam
+</div>
+
+</footer>
+
+
+<script>
+
+const uploadBox = document.getElementById("uploadBox")
+const fileInput = document.getElementById("fileInput")
+
+uploadBox.onclick = () => fileInput.click()
+
+uploadBox.addEventListener("dragover", e=>{
+e.preventDefault()
+uploadBox.classList.add("drag")
+})
+
+uploadBox.addEventListener("dragleave", ()=>{
+uploadBox.classList.remove("drag")
+})
+
+uploadBox.addEventListener("drop", e=>{
+e.preventDefault()
+uploadBox.classList.remove("drag")
+})
+
+</script>
+
+</body>
+</html>
