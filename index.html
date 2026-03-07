@@ -54,6 +54,22 @@ Chỉ chấp nhận file: PDF, DOCX, DOC
 
 </div>
 
+<!-- PRIVACY OPTION -->
+
+<div class="privacy-option">
+
+<label>
+<input type="radio" name="privacy" value="public" checked>
+Công khai
+</label>
+
+<label>
+<input type="radio" name="privacy" value="private">
+Riêng tư
+</label>
+
+</div>
+
 </section>
 
 
@@ -227,6 +243,18 @@ uploadBox.classList.remove("drag")
 uploadBox.addEventListener("drop", e=>{
 e.preventDefault()
 uploadBox.classList.remove("drag")
+})
+
+/* LẤY PRIVACY KHI CHỌN FILE */
+
+fileInput.addEventListener("change", function(){
+
+const privacy = document.querySelector('input[name="privacy"]:checked').value
+const file = this.files[0]
+
+console.log("File:", file)
+console.log("Privacy:", privacy)
+
 })
 
 </script>

@@ -15,19 +15,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 body{
 margin:0;
 font-family:"Segoe UI",sans-serif;
-background:#f1f5f9;
+background:linear-gradient(135deg,#f1f5f9,#e2e8f0);
+min-height:100vh;
 }
 
-/* ===== NAVBAR (ĐỒNG BỘ EXAM BANK) ===== */
+/* ===== NAVBAR ===== */
 
 .navbar{
-background:#ffffff;
+background:white;
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:18px 60px;
 border-bottom:1px solid #e2e8f0;
-box-shadow:0 4px 10px rgba(0,0,0,0.04);
+box-shadow:0 6px 20px rgba(0,0,0,0.05);
 position:sticky;
 top:0;
 z-index:1000;
@@ -46,17 +47,18 @@ cursor:pointer;
 .nav-right{
 display:flex;
 align-items:center;
-gap:20px;
+gap:25px;
 }
 
 /* TIMER */
 
 .timer{
 font-size:14px;
-color:#475569;
+color:#334155;
 display:flex;
 align-items:center;
 gap:6px;
+font-weight:600;
 }
 
 /* SUBMIT BUTTON */
@@ -64,8 +66,8 @@ gap:6px;
 .submit-btn{
 background:linear-gradient(135deg,#0B3C5D,#2563eb);
 color:white;
-padding:10px 26px;
-border-radius:50px;
+padding:10px 28px;
+border-radius:40px;
 border:none;
 cursor:pointer;
 font-weight:600;
@@ -82,7 +84,7 @@ box-shadow:0 10px 25px rgba(37,99,235,0.35);
 .parent{
 display:grid;
 grid-template-columns:4fr 1fr;
-gap:30px;
+gap:35px;
 max-width:1200px;
 margin:auto;
 padding:40px 20px;
@@ -91,33 +93,36 @@ padding:40px 20px;
 /* ===== QUESTION CARD ===== */
 
 .question{
-background:white;
+background:rgba(255,255,255,0.9);
+backdrop-filter:blur(8px);
 padding:25px;
-border-radius:24px;
+border-radius:20px;
 border:1px solid #e2e8f0;
-margin-bottom:20px;
+margin-bottom:22px;
 transition:0.25s;
 }
 
 .question:hover{
-box-shadow:0 15px 35px rgba(0,0,0,0.05);
+box-shadow:0 15px 35px rgba(0,0,0,0.08);
+transform:translateY(-2px);
 }
 
 /* ANSWERS */
 
 .answers label{
 display:block;
-padding:12px;
+padding:12px 14px;
 margin-top:8px;
 border-radius:10px;
 cursor:pointer;
 border:2px solid transparent;
+background:#f8fafc;
 transition:0.2s;
 }
 
 .answers label:hover{
 border:2px solid #2563eb;
-background:#f8fafc;
+background:white;
 }
 
 /* ===== SIDEBAR ===== */
@@ -127,10 +132,10 @@ position:sticky;
 top:90px;
 background:white;
 border:1px solid #e2e8f0;
-border-radius:24px;
+border-radius:20px;
 padding:25px;
 min-height:420px;
-box-shadow:0 10px 30px rgba(0,0,0,0.04);
+box-shadow:0 10px 35px rgba(0,0,0,0.06);
 }
 
 .question-box b{
@@ -179,6 +184,7 @@ height:100%;
 background:rgba(0,0,0,0.45);
 display:none;
 z-index:999;
+backdrop-filter:blur(3px);
 }
 
 /* ===== RESULT POPUP ===== */
@@ -190,12 +196,24 @@ left:50%;
 transform:translate(-50%,-50%);
 background:white;
 padding:40px;
-border-radius:24px;
+border-radius:20px;
 width:420px;
 display:none;
-box-shadow:0 20px 50px rgba(0,0,0,0.25);
+box-shadow:0 25px 60px rgba(0,0,0,0.25);
 text-align:center;
 z-index:1000;
+animation:popup 0.3s ease;
+}
+
+@keyframes popup{
+from{
+transform:translate(-50%,-60%);
+opacity:0;
+}
+to{
+transform:translate(-50%,-50%);
+opacity:1;
+}
 }
 
 /* ICON */
@@ -243,8 +261,9 @@ margin-bottom:20px;
 
 .progress-bar{
 height:10px;
-background:#22c55e;
+background:linear-gradient(90deg,#22c55e,#4ade80);
 width:0%;
+transition:width 0.8s ease;
 }
 
 /* RESULT LIST */
@@ -253,7 +272,7 @@ width:0%;
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
-gap:12px;
+gap:10px;
 font-size:14px;
 margin-top:10px;
 }
@@ -285,14 +304,35 @@ padding:12px;
 background:linear-gradient(135deg,#0B3C5D,#2563eb);
 color:white;
 border:none;
-border-radius:50px;
+border-radius:40px;
 cursor:pointer;
 font-weight:600;
 font-size:15px;
+transition:0.25s;
 }
 
 .confirm-btn:hover{
+transform:translateY(-2px);
 box-shadow:0 10px 25px rgba(37,99,235,0.35);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:900px){
+
+.parent{
+grid-template-columns:1fr;
+}
+
+.question-box{
+position:relative;
+top:0;
+}
+
+.navbar{
+padding:16px 20px;
+}
+
 }
 
 </style>
@@ -319,7 +359,7 @@ box-shadow:0 10px 25px rgba(37,99,235,0.35);
 </div>
 
 <button class="submit-btn" onclick="submitExam()">
-Nộp bài
+<i class="fa-solid fa-paper-plane"></i> Nộp bài
 </button>
 
 </div>

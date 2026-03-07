@@ -16,10 +16,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 body{
 margin:0;
 font-family:"Segoe UI",sans-serif;
-background:#f1f5f9;
+background:linear-gradient(135deg,#f1f5f9,#e2e8f0);
+min-height:100vh;
 }
 
-/* ===== NAVBAR (GIỐNG EXAM-BANK) ===== */
+/* ===== NAVBAR ===== */
 
 .navbar{
 background:#ffffff;
@@ -28,7 +29,7 @@ justify-content:space-between;
 align-items:center;
 padding:18px 60px;
 border-bottom:1px solid #e2e8f0;
-box-shadow:0 4px 10px rgba(0,0,0,0.04);
+box-shadow:0 6px 20px rgba(0,0,0,0.05);
 position:sticky;
 top:0;
 z-index:1000;
@@ -40,8 +41,14 @@ font-weight:700;
 color:#0B3C5D;
 display:flex;
 align-items:center;
-gap:8px;
+gap:10px;
 }
+
+.logo i{
+font-size:22px;
+}
+
+/* NAV LINKS */
 
 .nav-links{
 display:flex;
@@ -51,13 +58,13 @@ gap:28px;
 
 .nav-links a{
 text-decoration:none;
-color:#334155;
+color:#475569;
 font-weight:500;
 transition:0.25s;
 }
 
 .nav-links a:hover{
-color:#0B3C5D;
+color:#2563eb;
 }
 
 .nav-links a.active{
@@ -68,55 +75,65 @@ padding-bottom:4px;
 }
 
 .nav-cta{
-background:#0B3C5D;
+background:linear-gradient(135deg,#0B3C5D,#2563eb);
 color:white !important;
 padding:10px 18px;
 border-radius:30px;
 font-weight:600;
-transition:0.25s;
 }
 
 .nav-cta:hover{
-background:#2563eb;
+transform:translateY(-1px);
 }
 
-/* ===== GRID LAYOUT ===== */
+/* ===== GRID ===== */
 
 .parent{
 display:grid;
 grid-template-columns:repeat(5,1fr);
-gap:25px;
-padding:60px 60px;
+gap:30px;
+padding:60px;
 align-items:start;
 }
 
-/* CARD BOX */
+/* CARD */
 
 .box{
-background:white;
+background:rgba(255,255,255,0.9);
+backdrop-filter:blur(10px);
 border:1px solid #e2e8f0;
-border-radius:24px;
+border-radius:20px;
 padding:30px;
 transition:0.3s;
 }
 
 .box:hover{
-box-shadow:0 20px 40px rgba(0,0,0,0.05);
+box-shadow:0 20px 45px rgba(0,0,0,0.08);
+transform:translateY(-3px);
 }
 
-/* CREATE EXAM */
+/* GRID SIZE */
 
 .div1{
 grid-column:span 3;
 }
 
-/* PREVIEW */
-
 .div2{
 grid-column:span 2;
 }
 
-/* FORM GRID */
+/* TITLES */
+
+h2{
+margin-top:0;
+font-size:20px;
+display:flex;
+align-items:center;
+gap:10px;
+color:#1e293b;
+}
+
+/* FORM */
 
 .form-grid{
 display:grid;
@@ -137,42 +154,52 @@ grid-column:1/3;
 label{
 font-weight:600;
 margin-bottom:6px;
-color:#1e293b;
+color:#334155;
 }
 
+/* INPUT */
+
 input,select{
-padding:12px;
-border-radius:10px;
+padding:12px 14px;
+border-radius:12px;
 border:1px solid #e2e8f0;
 outline:none;
 font-size:14px;
+background:#f8fafc;
 transition:0.25s;
 }
 
 input:focus,select:focus{
 border-color:#2563eb;
-box-shadow:0 4px 10px rgba(37,99,235,0.15);
+background:white;
+box-shadow:0 6px 15px rgba(37,99,235,0.15);
 }
 
-/* BUTTON GROUP */
+/* BUTTONS */
 
 .btn-group{
-margin-top:20px;
+margin-top:25px;
 display:flex;
 gap:12px;
 }
 
-/* CREATE BUTTON */
+button{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:14px;
+}
+
+/* CREATE */
 
 .btn-create{
 background:linear-gradient(135deg,#0B3C5D,#2563eb);
 color:white;
-padding:11px 18px;
-border-radius:50px;
+padding:11px 20px;
+border-radius:40px;
 border:none;
 cursor:pointer;
 font-weight:600;
-transition:0.25s;
 }
 
 .btn-create:hover{
@@ -180,21 +207,89 @@ transform:translateY(-2px);
 box-shadow:0 10px 25px rgba(37,99,235,0.35);
 }
 
-/* START BUTTON */
+/* START */
 
 .btn-start{
 background:#10b981;
 color:white;
-padding:11px 18px;
-border-radius:50px;
+padding:11px 20px;
+border-radius:40px;
 border:none;
 cursor:pointer;
 font-weight:600;
-transition:0.25s;
 }
 
 .btn-start:hover{
 background:#059669;
+transform:translateY(-2px);
+}
+
+/* ===== PREVIEW ===== */
+
+.preview-header{
+margin-bottom:15px;
+padding-bottom:12px;
+border-bottom:1px solid #e2e8f0;
+}
+
+.preview-info{
+font-size:14px;
+color:#64748b;
+margin-top:4px;
+}
+
+/* PREVIEW AREA */
+
+#previewArea{
+max-height:420px;
+overflow-y:auto;
+padding-right:5px;
+}
+
+/* QUESTION CARD */
+
+.question-preview{
+margin-top:14px;
+padding:14px;
+border-radius:12px;
+background:#f8fafc;
+border:1px solid #e2e8f0;
+font-size:14px;
+transition:0.25s;
+}
+
+.question-preview:hover{
+background:white;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* SCROLLBAR */
+
+#previewArea::-webkit-scrollbar{
+width:6px;
+}
+
+#previewArea::-webkit-scrollbar-thumb{
+background:#cbd5f5;
+border-radius:6px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:1000px){
+
+.parent{
+grid-template-columns:1fr;
+}
+
+.div1,.div2{
+grid-column:span 1;
+}
+
+.navbar{
+padding:16px 25px;
+}
+
 }
 
 /* PREVIEW HEADER */
@@ -262,13 +357,6 @@ font-size:14px;
 <input id="examName" placeholder="Ví dụ: TOEIC Test 01">
 </div>
 
-<div class="form-group">
-<label>Chế độ chia sẻ</label>
-<select id="shareMode">
-<option>Công khai</option>
-<option>Riêng tư</option>
-</select>
-</div>
 
 <div class="form-group">
 <label>Thời gian làm bài (phút)</label>
