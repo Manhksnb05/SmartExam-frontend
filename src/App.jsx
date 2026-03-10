@@ -295,6 +295,7 @@ function ExamGrid({ exams, isHistory = false, onCreateExam, onPractice }) {
 
 function Header({ activePage, setPage, isLoggedIn, setIsLoggedIn, currentUser }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = window.innerWidth < 768;
   const nav = [
     { id: "home", label: "Trang chủ", icon: Icons.home },
     { id: "my-exams", label: "Bộ đề của bạn", icon: Icons.book },
@@ -304,47 +305,84 @@ function Header({ activePage, setPage, isLoggedIn, setIsLoggedIn, currentUser })
   ];
   return (
     <header style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(12px)", borderBottom: "1.5px solid rgba(59,130,246,0.12)", position: "sticky", top: 0, zIndex: 100, boxShadow: "0 4px 20px rgba(29,78,216,0.06)" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", height: 68, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 16px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         {/* Logo */}
-        <button onClick={() => setPage("home")} style={{ display: "flex", alignItems: "center", gap: 10, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-          <div style={{ width: 38, height: 38, background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(29,78,216,0.35)" }}>
-            <span style={{ color: "#fff", fontSize: 18, fontWeight: 900, fontFamily: "Georgia, serif" }}>S</span>
+        <button onClick={() => { setPage("home"); setMenuOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 8, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+          <div style={{ width: 34, height: 34, background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(29,78,216,0.35)" }}>
+            <span style={{ color: "#fff", fontSize: 16, fontWeight: 900, fontFamily: "Georgia, serif" }}>S</span>
           </div>
-          <div>
-            <span style={{ fontSize: 17, fontWeight: 900, color: "#0f172a", letterSpacing: -0.5, fontFamily: "'Segoe UI', sans-serif" }}>Smart<span style={{ color: "#1d4ed8" }}>Exam</span></span>
-          </div>
+          <span style={{ fontSize: 16, fontWeight: 900, color: "#0f172a", letterSpacing: -0.5 }}>Smart<span style={{ color: "#1d4ed8" }}>Exam</span></span>
         </button>
 
-        {/* Nav */}
-        <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
-          {nav.map(n => (
-            <button key={n.id} onClick={() => setPage(n.id)} style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 16px", borderRadius: 10, border: "none", background: activePage === n.id ? "linear-gradient(135deg,#1d4ed8,#3b82f6)" : "transparent", color: activePage === n.id ? "#fff" : "#475569", fontWeight: activePage === n.id ? 700 : 500, fontSize: 13.5, cursor: "pointer", transition: "all 0.2s", boxShadow: activePage === n.id ? "0 4px 12px rgba(29,78,216,0.25)" : "none" }}>
-              <Icon path={n.icon} size={15} color={activePage === n.id ? "#fff" : "#94a3b8"} />
-              {n.label}
-            </button>
-          ))}
-        </nav>
+        {/* Desktop Nav */}
+        {!isMobile && (
+          <nav style={{ display: "flex", alignItems: "center", gap: 2 }}>
+            {nav.map(n => (
+              <button key={n.id} onClick={() => setPage(n.id)} style={{ display: "flex", alignItems: "center", gap: 5, padding: "7px 12px", borderRadius: 9, border: "none", background: activePage === n.id ? "linear-gradient(135deg,#1d4ed8,#3b82f6)" : "transparent", color: activePage === n.id ? "#fff" : "#475569", fontWeight: activePage === n.id ? 700 : 500, fontSize: 13, cursor: "pointer", transition: "all 0.2s" }}>
+                <Icon path={n.icon} size={14} color={activePage === n.id ? "#fff" : "#94a3b8"} />
+                {n.label}
+              </button>
+            ))}
+          </nav>
+        )}
 
         {/* Right */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {isLoggedIn ? (
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 14 }}>N</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          {!isMobile && isLoggedIn && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 13 }}>{(currentUser?.name || "N")[0].toUpperCase()}</div>
               <div style={{ lineHeight: 1.2 }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: "#0f172a" }}>{currentUser?.name || "Người dùng"}</div>
-                <div style={{ fontSize: 11, color: "#94a3b8" }}>Người dùng</div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: "#0f172a" }}>{currentUser?.name || "Người dùng"}</div>
               </div>
-              <button onClick={async () => { try { await auth.logout(); } catch(e) {} localStorage.removeItem("smartexam_userId"); setIsLoggedIn(false); setCurrentUser(null); }} style={{ padding: "7px 14px", borderRadius: 9, border: "1.5px solid #fee2e2", background: "#fff5f5", color: "#dc2626", fontSize: 12, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", gap: 5 }}>
-                <Icon path={Icons.logout} size={13} color="#dc2626" /> Đăng xuất
+              <button onClick={async () => { try { await auth.logout(); } catch(e) {} localStorage.removeItem("smartexam_userId"); setIsLoggedIn(false); setCurrentUser(null); }} style={{ padding: "6px 12px", borderRadius: 8, border: "1.5px solid #fee2e2", background: "#fff5f5", color: "#dc2626", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                Đăng xuất
               </button>
             </div>
-          ) : (
-            <button onClick={() => setPage("login")} style={{ padding: "9px 20px", borderRadius: 10, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", border: "none", color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer", boxShadow: "0 4px 14px rgba(29,78,216,0.3)" }}>
+          )}
+          {!isMobile && !isLoggedIn && (
+            <button onClick={() => setPage("login")} style={{ padding: "8px 18px", borderRadius: 9, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", border: "none", color: "#fff", fontSize: 13, fontWeight: 700, cursor: "pointer" }}>
               Đăng nhập
+            </button>
+          )}
+          {/* Hamburger mobile */}
+          {isMobile && (
+            <button onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", cursor: "pointer", padding: 6, borderRadius: 8, display: "flex", flexDirection: "column", gap: 5 }}>
+              <div style={{ width: 22, height: 2, background: "#1d4ed8", borderRadius: 2, transition: "all 0.2s", transform: menuOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
+              <div style={{ width: 22, height: 2, background: "#1d4ed8", borderRadius: 2, opacity: menuOpen ? 0 : 1 }} />
+              <div style={{ width: 22, height: 2, background: "#1d4ed8", borderRadius: 2, transition: "all 0.2s", transform: menuOpen ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
             </button>
           )}
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobile && menuOpen && (
+        <div style={{ background: "#fff", borderTop: "1px solid #e2e8f0", padding: "8px 16px 16px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)" }}>
+          {nav.map(n => (
+            <button key={n.id} onClick={() => { setPage(n.id); setMenuOpen(false); }} style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "12px 16px", borderRadius: 10, border: "none", background: activePage === n.id ? "linear-gradient(135deg,#1d4ed8,#3b82f6)" : "transparent", color: activePage === n.id ? "#fff" : "#0f172a", fontWeight: activePage === n.id ? 700 : 500, fontSize: 14, cursor: "pointer", marginBottom: 4, textAlign: "left" }}>
+              <Icon path={n.icon} size={16} color={activePage === n.id ? "#fff" : "#94a3b8"} />
+              {n.label}
+            </button>
+          ))}
+          <div style={{ borderTop: "1px solid #e2e8f0", marginTop: 8, paddingTop: 12 }}>
+            {isLoggedIn ? (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: "50%", background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: 800, fontSize: 13 }}>{(currentUser?.name || "N")[0].toUpperCase()}</div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#0f172a" }}>{currentUser?.name || "Người dùng"}</span>
+                </div>
+                <button onClick={async () => { try { await auth.logout(); } catch(e) {} localStorage.removeItem("smartexam_userId"); setIsLoggedIn(false); setCurrentUser(null); setMenuOpen(false); }} style={{ padding: "7px 14px", borderRadius: 8, border: "1.5px solid #fee2e2", background: "#fff5f5", color: "#dc2626", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                  Đăng xuất
+                </button>
+              </div>
+            ) : (
+              <button onClick={() => { setPage("login"); setMenuOpen(false); }} style={{ width: "100%", padding: "12px", borderRadius: 10, background: "linear-gradient(135deg,#1d4ed8,#3b82f6)", border: "none", color: "#fff", fontSize: 14, fontWeight: 700, cursor: "pointer" }}>
+                Đăng nhập với Google
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
@@ -1632,7 +1670,7 @@ Câu 3: D`;
             <div style={{ width: 8, height: 8, background: "#1d4ed8", borderRadius: "50%", animation: "pulse 2s infinite" }} />
             <span style={{ fontSize: 12.5, fontWeight: 700, color: "#1d4ed8" }}>Nền tảng ôn thi thông minh #1 Việt Nam</span>
           </div>
-          <h1 style={{ fontSize: 44, fontWeight: 900, color: "#0f172a", lineHeight: 1.15, margin: "0 0 20px", letterSpacing: -1 }}>Ôn thi hiệu quả với <span style={{ background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Trí tuệ AI</span></h1>
+          <h1 style={{ fontSize: "clamp(26px, 5vw, 44px)", fontWeight: 900, color: "#0f172a", lineHeight: 1.2, margin: "0 0 20px", letterSpacing: -1 }}>Ôn thi hiệu quả với <span style={{ background: "linear-gradient(135deg,#1d4ed8,#38bdf8)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>Trí tuệ AI</span></h1>
           <p style={{ fontSize: 16, color: "#64748b", lineHeight: 1.7, marginBottom: 32 }}>Tải lên tài liệu của bạn, AI sẽ tự động tạo đề thi phù hợp. Khám phá kho đề thi phong phú với hơn 50,000 câu hỏi.</p>
 
           {/* Buttons */}
