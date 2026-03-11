@@ -4,7 +4,7 @@
 //  Base URL tự động qua Vite proxy: /api → http://localhost:8080
 // ============================================================
 
-const BASE = "http://smartexam.id.vn";        // Vite proxy xử lý, không cần localhost:8080
+const BASE = "";        // Vite proxy xử lý, không cần localhost:8080
 const JSON_HEADERS = { "Content-Type": "application/json" };
 
 // Helper: fetch + trả về JSON, ném lỗi nếu không ok
@@ -24,7 +24,7 @@ async function request(url, options = {}) {
 // ─── AUTH ─────────────────────────────────────────────────────
 export const auth = {
   // Redirect sang Google OAuth — gọi bằng window.location.href
-  loginUrl: `http://smartexam.id.vn/oauth2/authorization/google`,
+  loginUrl: `https://smartexam.id.vn/login/oauth2/code/google`,
 
   // POST /api/auth/logout — Đăng xuất, xóa session phía backend
   logout: () =>
