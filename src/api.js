@@ -4,7 +4,7 @@
 //  Base URL tự động qua Vite proxy: /api → http://localhost:8080
 // ============================================================
 
-const BASE = "https://smartexam.id.vn";        // Vite proxy xử lý, không cần localhost:8080
+const BASE = "";          // Vite proxy xử lý, không cần localhost:8080
 const JSON_HEADERS = { "Content-Type": "application/json" };
 
 // Helper: fetch + trả về JSON, ném lỗi nếu không ok
@@ -24,7 +24,7 @@ async function request(url, options = {}) {
 // ─── AUTH ─────────────────────────────────────────────────────
 export const auth = {
   // Redirect sang Google OAuth — gọi bằng window.location.href
-  loginUrl: `https://smartexam.id.vn/login/oauth2/code/google`,
+  loginUrl: `http://localhost:8080/oauth2/authorization/google`,
 
   // POST /api/auth/logout — Đăng xuất, xóa session phía backend
   logout: () =>
@@ -68,6 +68,22 @@ export const examApi = {
       body: JSON.stringify({ status }),
     }),
 
+  // PATCH /api/exams/{id}/title — Đổi tên bộ đề
+  updateTitle: (id, title) =>
+    request(`${BASE}/api/exams/${id}/title`, {
+      method: "PATCH",
+      headers: JSON_HEADERS,
+      body: JSON.stringify({ title }),
+    }),
+
+  // PUT /api/questions/{id} — Sửa câu hỏi
+  updateQuestion: (id, data) =>
+    request(`${BASE}/api/questions/${id}`, {
+      method: "PUT",
+      headers: JSON_HEADERS,
+      body: JSON.stringify(data),
+    }),
+
   // POST /api/exams/practice-submit — Nộp bài luyện tập
   // body: { userId, examId, answers: [{ questionId, selectedOption }] }
   practiceSubmit: (data) =>
@@ -76,10 +92,6 @@ export const examApi = {
       headers: JSON_HEADERS,
       body: JSON.stringify(data),
     }),
-
-  // GET /api/exams/user/{userId} — Lấy đề theo userId (MyExams + CreatedExams)
-  getByUser: (userId) =>
-    request(`${BASE}/api/exams/user/${userId}`),
 
   // GET /api/exams/user/{userId} — Lấy đề theo userId (MyExams + CreatedExams)
   getByUser: (userId) =>
@@ -145,6 +157,10 @@ export const customExamApi = {
     a.href = url; a.download = filename; a.click();
     URL.revokeObjectURL(url);
   },
+
+  // GET /api/exams/custom-exams/user/{userId} — Lấy đề đã tạo của user
+  getByUser: (userId) =>
+    request(`${BASE}/api/exams/custom-exams/user/${userId}`),
 };
 
 // ─── AI ───────────────────────────────────────────────────────
@@ -170,14 +186,18 @@ export const aiApi = {
       headers: JSON_HEADERS,
       body: JSON.stringify({ questionId, userSelectedOption }),
     }),
+
+    // Phân tích lệnh giọng nói qua Gemini
+  parseVoice: (transcript, totalQuestions) =>
+    request(`${BASE}/api/ai/parse-voice`, {
+      method: "POST",
+      headers: JSON_HEADERS,
+      body: JSON.stringify({ transcript, totalQuestions }),
+    }),
 };
 
 // ─── USERS ────────────────────────────────────────────────────
 export const userApi = {
-
-  // GET /api/users/{userId} — Lấy thông tin user theo ID
-  getById: (userId) =>
-    request(`${BASE}/api/users/${userId}`),
 
   // GET /api/users/{userId} — Lấy thông tin user theo ID
   getById: (userId) =>
@@ -222,6 +242,7 @@ export const mappers = {
     title: dto.title,
     questions: dto.totalQuestions,
     subject: dto.subject || "Chung",
+    status: dto.status?.toLowerCase() || "public",
     time: dto.timeLimit || 30,
     attempts: dto.attempts || 0,
     rating: dto.rating || 0,
@@ -234,9 +255,9 @@ export const mappers = {
     id: dto.examId,
     resultId: dto.resultId,
     title: dto.examTitle,
-    score: Math.round(dto.score),         // backend trả % (0-100)
+    score: Math.round(dto.score * 10), // backend trả 0-10, frontend dùng 0-100
     date: dto.completedAt,
-    status: dto.score >= 50 ? "Đạt" : "Không đạt",
+    status: dto.score >= 5 ? "Đạt" : "Không đạt", // so sánh thang 10
     questions: dto.totalQuestions,
     subject: dto.subject || "Chung",
     time: 30,

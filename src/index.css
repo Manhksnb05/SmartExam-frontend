@@ -1,1 +1,42 @@
 @import "tailwindcss";
+ 
+/* ── Global mobile resets ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+ 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+ 
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+ 
+/* Tap targets tối thiểu 44px trên mobile */
+@media (max-width: 640px) {
+  button, a, [role="button"] {
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+}
+ 
+/* Cuộc cháy image scaling */
+img { max-width: 100%; height: auto; }
+ 
+/* Scrollbar đẹp hơn */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+ 
+/* Animations */
+@keyframes spin      { to { transform: rotate(360deg); } }
+@keyframes pulse     { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes fadeIn    { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeInUp  { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes shimmer   { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+@keyframes float     { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
